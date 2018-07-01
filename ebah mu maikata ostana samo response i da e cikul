@@ -1,0 +1,83 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		string customerName = "";
+		string productName = "";
+		string count = "";
+		string price = "";
+		string order = "";
+		
+		while( order != "end of shift") {
+			order = Console.ReadLine();
+
+			int start_index = order.IndexOf('%');
+			int end_index = order.LastIndexOf('%')+1;
+			int length = end_index-start_index;
+			customerName = order.Substring(start_index,length);
+
+
+			if (customerName[0] == '%' && customerName[customerName.Length - 1] == '%'){
+				customerName = customerName.Split('%', '%')[1];
+				customerName = char.ToUpper(customerName[0]) + customerName.Substring(1).ToLower();
+				Console.WriteLine(customerName);
+				
+				start_index = order.IndexOf('<');
+				end_index = order.LastIndexOf('>')+1;
+				length = end_index-start_index;
+				productName = order.Substring(start_index,length);
+
+				if (productName[0] == '<' && productName[productName.Length - 1] == '>'){
+					productName = productName.Split('<', '>')[1];
+					Console.WriteLine(productName);
+					
+					start_index = order.IndexOf('|');
+					end_index = order.LastIndexOf('|')+1;
+					length = end_index-start_index;
+					count = order.Substring(start_index,length);
+					
+					if (count[0] == '|' && count[count.Length - 1] == '|'){
+						
+						count = count.Split('|', '|')[1];
+						int.Parse(count);
+						Console.WriteLine(count);
+						
+							
+						
+						start_index = order.LastIndexOf('|') +1;
+						end_index = order.LastIndexOf('$') +1 ;
+						length = end_index-start_index;
+						price = order.Substring(start_index,length);
+						
+						if (price[price.Length - 1] == '$'){
+							
+							price = price.Remove(price.Length - 1);
+				
+							decimal.Parse(price);
+							Console.WriteLine(price);
+							
+							var charsToRemove = new string[] { "|", "$", "%", "." };
+							foreach (var c in charsToRemove)
+							{
+								order = order.Replace(c, string.Empty);
+							}
+							
+						}else{
+							Console.WriteLine("invalid input, must end with $");
+						}
+						
+					}else{
+						Console.WriteLine("invalid input, must be surrounded by | and |");
+					}
+				}else{
+					Console.WriteLine("invalid input, must be surrounded by < and >");
+				}
+			}else{
+				Console.WriteLine("invalid input, must be surrounded by % and %");
+			}
+		}
+		Console.WriteLine(order);
+	}
+}
