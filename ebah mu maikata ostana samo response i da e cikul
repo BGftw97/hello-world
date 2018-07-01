@@ -22,7 +22,6 @@ public class Program
 			if (customerName[0] == '%' && customerName[customerName.Length - 1] == '%'){
 				customerName = customerName.Split('%', '%')[1];
 				customerName = char.ToUpper(customerName[0]) + customerName.Substring(1).ToLower();
-				Console.WriteLine(customerName);
 				
 				start_index = order.IndexOf('<');
 				end_index = order.LastIndexOf('>')+1;
@@ -31,7 +30,6 @@ public class Program
 
 				if (productName[0] == '<' && productName[productName.Length - 1] == '>'){
 					productName = productName.Split('<', '>')[1];
-					Console.WriteLine(productName);
 					
 					start_index = order.IndexOf('|');
 					end_index = order.LastIndexOf('|')+1;
@@ -41,10 +39,7 @@ public class Program
 					if (count[0] == '|' && count[count.Length - 1] == '|'){
 						
 						count = count.Split('|', '|')[1];
-						int.Parse(count);
-						Console.WriteLine(count);
-						
-							
+						int.Parse(count);	
 						
 						start_index = order.LastIndexOf('|') +1;
 						end_index = order.LastIndexOf('$') +1 ;
@@ -56,13 +51,13 @@ public class Program
 							price = price.Remove(price.Length - 1);
 				
 							decimal.Parse(price);
-							Console.WriteLine(price);
 							
-							var charsToRemove = new string[] { "|", "$", "%", "." };
+							var charsToRemove = new string[] { "|", "$", "%", ".", "<", ">" };
 							foreach (var c in charsToRemove)
 							{
 								order = order.Replace(c, string.Empty);
 							}
+							Console.WriteLine(order);
 							
 						}else{
 							Console.WriteLine("invalid input, must end with $");
@@ -78,6 +73,6 @@ public class Program
 				Console.WriteLine("invalid input, must be surrounded by % and %");
 			}
 		}
-		Console.WriteLine(order);
+
 	}
 }
